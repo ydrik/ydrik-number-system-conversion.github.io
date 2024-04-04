@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Number System Conversion</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+  </head>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+    *{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    }
+    body {      
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 90vh;
+      padding: 0 20px;
+      background: url('forweb1.jpg') no-repeat center center fixed;
+      background-size: cover; 
+    }
+    ::selection{
+      color: #fff;
+      background: #675AFE;
+    }
+    .wrapper {
+    width: 350px;
+    padding: 45px;
+    border-radius: 40px;
+    border: 10px solid var(--red-color);
+    background: rgba(250, 250, 250, 0.8); 
+    border-inline-color: red;
+    backdrop-filter: blur(px);
+    height: 530px; 
+    }
+    .wrapper h5 {
+      color: #3fb0f1;
+      text-align: center;
+      margin: -30px 0px 0px;
+    }
+    .wrapper header{
+      font-size: 32px;
+      font-weight: 450;
+      text-align: center;
+      margin: 15px 0px 0px;
+    }
+    .wrapper form{
+      margin: 40px 0 -5px 0;
+    }
+    form :where(input, select, button){
+      width: 100%;
+      outline: none;
+      border-radius: 15px;
+      border: none;
+    }
+    
+    form p{
+      font-size: 18px;
+      margin-bottom: 5px;
+    }
+    form input{
+      height: 50px;
+      font-size: 17px;
+      padding: 0 15px;
+      border: 1px solid #999;
+      margin-bottom: 10;
+    }
+    form input:focus{
+      padding: 0 14px;
+      border: 5px solid #3fb0f1;
+    }
+    form .drop-list{
+      display: flex;
+      margin-top: 10px;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .drop-list .select-box{
+      display: flex;
+      width: 115px;
+      height: 45px;
+      align-items: center;
+      border-radius: 15px;
+      justify-content: center;
+      border: 1px solid #999;
+    }
+    .select-box img{
+      max-width: 21px;
+      margin: 0 5px;
+    }
+    .select-box select{
+      width: auto;
+      font-size: 16px;
+      background: none;
+      border: none;
+      margin: 0px 0px 0 3px;
+    }
+    .select-box select::-webkit-scrollbar{
+      width: 8px;
+    }
+    .select-box select::-webkit-scrollbar-track{
+      background: #fff;
+    }
+    .select-box select::-webkit-scrollbar-thumb{
+      background: #888;
+      border-radius: 8px;
+      border-right: 2px solid #ffffff;
+    }
+    .drop-list .icon{
+      cursor: pointer;
+      margin-top: 30px;
+      font-size: 22px;
+    }
+    form .exchange-rate{
+      font-size: 17px;
+      margin: 20px 0 30px;
+    }
+    .result {
+      font-size: 18px;
+      text-align: center;
+      margin-top: 20px;
+      white-space: pre-wrap; 
+      word-wrap: break-word; 
+    }
+    form button{
+      height: 52px;
+      color: #fff;
+      font-size: 25px;
+      cursor: pointer;
+      background: #409ebb;
+      transition: 0.3s ease;
+      margin-top: 5px; 
+    }
+    form button:hover{
+      background: #3482e7;
+    }
+      </style>
+</head>
+
+<body>    
+    <div class="wrapper">
+      <h5>Programmer: Cydric Luis C. Racaza</h5>
+      <header>Number System Conversion</header>
+      <form action="#">
+        <div class="amount">
+          <p>Enter Number:</p>
+          <input type="text" id="numberInput" value="1">
+        </div>
+        <div class="drop-list">
+          <div class="from">
+            <p>From:</p>
+            <div class="select-box">
+                <select id="fromSelect">
+                <option value="binary">Binary</option>
+                <option value="octal">Octal</option>
+                <option value="decimal">Decimal</option>
+                <option value="hex">Hex</option>
+                </select>
+              </div>
+              </div>
+              <div class="to">
+              <p>To:</p>
+              <div class="select-box">
+                <select id="toSelect">
+                <option value="binary">Binary</option>
+                <option value="octal">Octal</option>
+                <option value="decimal">Decimal</option>
+                <option value="hex">Hex</option>
+                </select>
+              </div>
+              </div>
+            </div>
+            <div class="result" id="result"></div>
+            <button type="button" onclick="convert()">Convert</button>
+            </form>
+            <!-- <div class="result" id="result"></div> -->
+          </div>
+          <script>
+
+      function convert() {
+        var numberInput = document.getElementById("numberInput").value;
+        var fromSelect = document.getElementById("fromSelect").value;
+        var toSelect = document.getElementById("toSelect").value;
+        var result = "";
+
+        if (fromSelect === "binary") 
+        {
+          if (!/^[01]+$/.test(numberInput)) {
+            document.getElementById("result").textContent = "⚠️ Binary number SHOULD ONLY contain 0 and 1 ⚠️";  
+            document.getElementById("result").style.color = "red";
+            document.getElementById("result").style.fontSize = "20px";
+            return;
+          }
+          if (toSelect === "binary") {
+          result = parseInt(numberInput, 2).toString(2);
+          }
+          if (toSelect === "octal") {
+          result = parseInt(numberInput, 2).toString(8);
+          } else if (toSelect === "decimal") {
+          result = parseInt(numberInput, 2).toString(10);
+          } else if (toSelect === "hex") {
+          result = parseInt(numberInput, 2).toString(16).toUpperCase();
+          }
+          } else if (fromSelect === "octal") {
+
+          if (toSelect === "binary") 
+          {
+          result = parseInt(numberInput, 8).toString(2);
+          
+          } else if (toSelect === "octal") {
+            result = parseInt(numberInput, 8).toString(8);
+          } else if (toSelect === "hex") {
+          result = parseInt(numberInput, 8).toString(16).toUpperCase();
+          } else {
+          result = parseInt(numberInput, 8).toString(10);
+          }
+          } else if (fromSelect === "decimal") {
+          if (toSelect === "binary") {
+
+          result = parseInt(numberInput, 10).toString(2);
+          } else if (toSelect === "octal") {
+          result = parseInt(numberInput, 10).toString(8);
+          } else if (toSelect === "decimal") {
+            result = parseInt(numberInput, 10).toString(10);
+          } else {
+          result = parseInt(numberInput, 10).toString(16).toUpperCase();
+          }
+          } else if (fromSelect === "hex") {
+          if (toSelect === "binary") {
+
+          result = parseInt(numberInput, 16).toString(2);
+          } else if (toSelect === "octal") {
+          result = parseInt(numberInput, 16).toString(8);
+          } else if (toSelect === "hex") {
+          result = parseInt(numberInput, 16).toString(16);
+          } else {
+          result = parseInt(numberInput, 16).toString(10);
+          }
+        }
+            document.getElementById("result").textContent = "Result: " + result;
+            document.getElementById("result").innerHTML = "<strong><span style='color: black;'>" + result + "</span></strong>";
+        }
+    </script>
+  </body>
+</html>
